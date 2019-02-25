@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import { fetchAPI } from "../../actions/requestActions";
 import { Navbar } from "react-bootstrap";
 import "./App.css";
+import SearchBar from "../searchBar/SearchBar";
+import CurrentWeather from "../currentWeather/CurrentWeather";
 
 class App extends Component {
   constructor(props) {
@@ -16,18 +18,21 @@ class App extends Component {
   }
 
   render() {
-    console.log("2", this.props.response);
+    // console.log("2", this.props.response);
     return (
       <div className="App">
-        <header className="App-header">
-          {this.props.response &&
-            this.props.response.list.length &&
-            this.props.response.list.map(dayWeather => {
-              console.log(dayWeather);
+        <SearchBar />
+        {this.props.response && this.props.response.list.length && (
+          <CurrentWeather />
+        )}
+        {/* {this.props.response &&
+          this.props.response.list.length &&
+          this.props.response.list.map(dayWeather => {
+            // console.log(dayWeather);
 
-              return <p>{dayWeather.main.temp - 273}</p>;
-            })}
-        </header>
+            const temp = Math.round((dayWeather.main.temp - 273) * 100) / 100;
+            return <p>{temp}</p>;
+          })} */}
       </div>
     );
   }
@@ -35,6 +40,7 @@ class App extends Component {
 
 const mapStateToProps = state => ({
   response: state.responses.response,
+  loading: state.responses.loading,
   address: state.responses.city
 });
 

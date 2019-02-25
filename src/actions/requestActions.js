@@ -10,7 +10,7 @@ export function fetchAPI(city) {
     return fetch(url)
       .then(handleErrors)
       .then(response => {
-        console.log("1. response", response);
+        // console.log("1. response", response);
         return response.json();
       })
       .then(data => {
