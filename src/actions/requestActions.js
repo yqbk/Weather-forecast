@@ -1,15 +1,22 @@
-export function fetchAPI(address, mode) {
-  return dispatch => {
-    // we replace any address with path to file
-    const mockedAddress = "/service/response." + mode;
+const API_KEY = "2bc56728817d88f15b17efb38cf8c7df";
+const ROOT_URL = `http://api.openweathermap.org/data/2.5/forecast?appid=${API_KEY}`;
 
-    dispatch(getAPIRequest(mockedAddress));
+export function fetchAPI(city) {
+  return dispatch => {
+    const url = `${ROOT_URL}&q=${city},pl`;
+    dispatch(getAPIRequest(city));
 
     // Mock real address and get data from static files provided for the task
-    return fetch(mockedAddress)
+    return fetch(url)
       .then(handleErrors)
-      .then(response => (mode === "json" ? response.json() : response.text()))
-      .then(data => dispatch(getAPIRequestSuccess(data)))
+      .then(response => {
+        console.log("1. response", response);
+        return response.json();
+      })
+      .then(data => {
+        console.log("1. response", data);
+        return dispatch(getAPIRequestSuccess(data));
+      })
       .catch(error => dispatch(getAPIRequestFailure(error)));
   };
 }
@@ -26,9 +33,9 @@ export const GET_API_REQUEST = "GET_API_REQUEST";
 export const GET_API_REQUEST_SUCCESS = "GET_API_REQUEST_SUCCESS";
 export const GET_API_REQUEST_FAILURE = "GET_API_REQUEST_FAILURE";
 
-export const getAPIRequest = address => ({
+export const getAPIRequest = city => ({
   type: "GET_API_REQUEST",
-  payload: { address }
+  payload: { city }
 });
 
 export const getAPIRequestSuccess = response => {

@@ -11,20 +11,36 @@ class App extends Component {
     this.state = {};
   }
 
+  componentDidMount() {
+    this.props.fetchAPI("warsaw");
+  }
+
   render() {
+    console.log("2", this.props.response);
     return (
       <div className="App">
         <header className="App-header">
-          <p>Basic setup done</p>
+          {this.props.response &&
+            this.props.response.list.length &&
+            this.props.response.list.map(dayWeather => {
+              console.log(dayWeather);
+
+              return <p>{dayWeather.main.temp - 273}</p>;
+            })}
         </header>
       </div>
     );
   }
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  response: state.responses.response,
+  address: state.responses.city
+});
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = dispatch => ({
+  fetchAPI: city => dispatch(fetchAPI(city))
+});
 
 export default connect(
   mapStateToProps,

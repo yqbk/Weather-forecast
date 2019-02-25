@@ -5,7 +5,7 @@ import {
 } from "../actions/requestActions";
 
 const initialState = {
-  address: "",
+  city: "",
   response: "",
   loading: false,
   error: null
@@ -16,7 +16,7 @@ export default function responsesReducer(state = initialState, action) {
     case GET_API_REQUEST: {
       return {
         ...state,
-        address: action.payload.address,
+        address: action.payload.city,
         loading: true
       };
     }
