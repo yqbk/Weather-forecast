@@ -23,7 +23,7 @@ class SearchBar extends Component {
   onFormSubmit = event => {
     event.preventDefault();
 
-    console.log("On submit");
+    // console.log("On submit");
 
     this.props.fetchAPI(this.state.city);
     this.setState({ city: "" });

@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import ChartistGraph from "react-chartist";
 import { fetchAPI } from "../../actions/requestActions";
+
 import {
   Navbar,
   Nav,
@@ -51,17 +53,54 @@ class App extends Component {
   render() {
     // console.log("2", this.props.response);
 
-    const { currentWeatherIcon, currentWeatherTemp, city } = this.props;
+    const {
+      currentWeatherIcon,
+      currentWeatherTemp,
+      city,
+      response
+    } = this.props;
 
-    console.log("?", currentWeatherIcon, currentWeatherTemp);
+    const time = response && response.list.map(item => item.dt_txt.slice(5,-3));
+
+    const temp =
+      response && response.list.map(item => getTempInCelsius(item.main.temp));
+
+    // console.log("--", time);
+    // console.log("--", temp);
+
+    var data = {
+      labels: time,
+      series: [[...temp]]
+    };
+
+    var options = {
+      high: 20,
+      low: -10,
+      axisX: {
+        offset: 70,
+
+        labelInterpolationFnc: function(value, index) {
+          return index % 5 === 0 ? value : null;
+        }
+      }
+    };
+
+    var type = "Line";
 
     return (
       <div className="App">
         <SearchBar />
 
         {this.props.response && this.props.response.list.length && (
-          <CurrentWeather icon={currentWeatherIcon} temp={currentWeatherTemp} city={city}/>
+          <CurrentWeather
+            icon={currentWeatherIcon}
+            temp={currentWeatherTemp}
+            city={city}
+          />
         )}
+
+        <ChartistGraph data={data} options={options} type={type} />
+
         {/* {this.props.response &&
           this.props.response.list.length &&
           this.props.response.list.map(dayWeather => {
