@@ -3,7 +3,7 @@ const ROOT_URL = `http://api.openweathermap.org/data/2.5/forecast?appid=${API_KE
 
 export function fetchAPI(city) {
   return dispatch => {
-    const url = `${ROOT_URL}&q=${city},pl`;
+    const url = `${ROOT_URL}&q=${city}`;
     dispatch(getAPIRequest(city));
 
     // Mock real address and get data from static files provided for the task

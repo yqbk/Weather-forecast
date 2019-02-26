@@ -3,10 +3,13 @@ import {
   GET_API_REQUEST_SUCCESS,
   GET_API_REQUEST_FAILURE
 } from "../actions/requestActions";
+import { getTempInCelsius } from "../helpers/temp";
 
 const initialState = {
   city: "",
   response: "",
+  currentWeatherIcon: "",
+  currentWeatherTemp: 0,
   loading: false,
   error: null
 };
@@ -16,16 +19,23 @@ export default function responsesReducer(state = initialState, action) {
     case GET_API_REQUEST: {
       return {
         ...state,
-        address: action.payload.city,
+        city: action.payload.city,
         loading: true
       };
     }
 
     case GET_API_REQUEST_SUCCESS: {
+      const weatherData = action.payload.response;
+      const currentWeather = weatherData.list[0];
+
+      // console.log('reducer', currentWeather)
+
       return {
         ...state,
         loading: false,
-        response: action.payload.response
+        response: weatherData,
+        currentWeatherIcon: currentWeather.weather[0].id,
+        currentWeatherTemp: getTempInCelsius(currentWeather.main.temp)
       };
     }
 

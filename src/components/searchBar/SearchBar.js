@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchAPI } from "../../actions/requestActions";
 
+import { Navbar, Nav, Form, FormControl, Button } from "react-bootstrap";
+import "./style.css";
+
 class SearchBar extends Component {
   constructor(props) {
     super(props);
@@ -20,25 +23,32 @@ class SearchBar extends Component {
   onFormSubmit = event => {
     event.preventDefault();
 
+    console.log("On submit");
+
     this.props.fetchAPI(this.state.city);
     this.setState({ city: "" });
   };
 
   render() {
     return (
-      <form onSubmit={this.onFormSubmit} className="input-group">
-        <input
-          placeholder="Get a five-day forecast in your favourite cities."
-          className="form-control"
-          value={this.state.city}
-          onChange={this.onInputChange}
-        />
-        <span className="input-group-btn">
-          <button type="submit" className="btn btn-secondary">
-            {this.submitText}
-          </button>
-        </span>
-      </form>
+      <Navbar bg="light">
+        <Navbar.Brand>Weather</Navbar.Brand>
+        <Nav className="mr-auto" />
+        <Form inline onSubmit={this.onFormSubmit}>
+          <div className="search">
+            <FormControl
+              type="text"
+              placeholder="Type city in Poland"
+              className="mr-sm-2"
+              value={this.state.city}
+              onChange={this.onInputChange}
+            />
+            <Button variant="outline-success" type="submit">
+              Go!
+            </Button>
+          </div>
+        </Form>
+      </Navbar>
     );
   }
 }
