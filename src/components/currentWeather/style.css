@@ -1,9 +1,14 @@
+.current-weather-container {
+    padding-bottom: 30px;
+    border-bottom: 1px dashed black;
+}
+
 .current-weather {
     display: flex;
     /* border: 1px solid black; */
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    /* padding: 20px; */
 }
 
 .current-weather-info {
@@ -17,4 +22,9 @@ p {
     font-weight: bold;
     margin: 0;
     padding-left: 20px;
+}
+
+.city-name {
+
+    font-weight: bolder;
 }

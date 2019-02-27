@@ -5,11 +5,15 @@ const CurrentWeather = ({ icon, temp, city }) => {
   // console.log("-> ", icon, temp);
 
   return (
-    <div className="current-weather">
-      <i className={"wi wi-owm-" + icon} />
-      <p>{city}</p>
-      <div className="current-weather-info">
-        <p>{temp + "°C"}</p>
+    <div className={"current-weather-container"}>
+      <h4>
+        Current weather condition for <p className={"city-name"}>{city}</p>
+      </h4>
+      <div className="current-weather">
+        <i className={"wi wi-owm-" + icon} />
+        <div className="current-weather-info">
+          <p>{temp + "°C"}</p>
+        </div>
       </div>
     </div>
   );

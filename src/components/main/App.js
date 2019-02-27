@@ -15,6 +15,7 @@ import "./App.css";
 import SearchBar from "../searchBar/SearchBar";
 import CurrentWeather from "../currentWeather/CurrentWeather";
 import { getTempInCelsius } from "../../helpers/temp";
+import LineChart from "../lineChart/LineChart";
 
 class App extends Component {
   constructor(props) {
@@ -60,55 +61,57 @@ class App extends Component {
       response
     } = this.props;
 
-    const time = response && response.list.map(item => item.dt_txt.slice(5,-3));
+    const time =
+      response && response.list.map(item => item.dt_txt.slice(5, -8));
 
     const temp =
       response && response.list.map(item => getTempInCelsius(item.main.temp));
 
-    // console.log("--", time);
-    // console.log("--", temp);
+    const humidity = response && response.list.map(item => item.main.humidity);
 
-    var data = {
+    const data = {
       labels: time,
       series: [[...temp]]
     };
 
-    var options = {
-      high: 20,
-      low: -10,
-      axisX: {
-        offset: 70,
-
-        labelInterpolationFnc: function(value, index) {
-          return index % 5 === 0 ? value : null;
-        }
-      }
+    const data2 = {
+      labels: time,
+      series: [[], [...humidity]]
     };
 
-    var type = "Line";
+    const tempChartOptions = {
+      high: Math.max(temp) + 5,
+      low: Math.min(temp) - 5
+    };
+
+    const humidityChartOptions = {
+      high: 100,
+      low: 0
+    };
 
     return (
       <div className="App">
         <SearchBar />
 
         {this.props.response && this.props.response.list.length && (
-          <CurrentWeather
-            icon={currentWeatherIcon}
-            temp={currentWeatherTemp}
-            city={city}
-          />
+          <div>
+            <CurrentWeather
+              icon={currentWeatherIcon}
+              temp={currentWeatherTemp}
+              city={city}
+            />
+            <LineChart
+              data={data}
+              options={tempChartOptions}
+              title={"Temperature in 5 days"}
+            />
+            <LineChart
+              data={data2}
+              options={humidityChartOptions}
+              title={"Humidity in 5 days"}
+            />
+          </div>
         )}
-
-        <ChartistGraph data={data} options={options} type={type} />
-
-        {/* {this.props.response &&
-          this.props.response.list.length &&
-          this.props.response.list.map(dayWeather => {
-            // console.log(dayWeather);
-
-            const temp = Math.round((dayWeather.main.temp - 273) * 100) / 100;
-            return <p>{temp}</p>;
-          })} */}
       </div>
     );
   }
