@@ -2,12 +2,14 @@ import React from "react";
 import ChartistGraph from "react-chartist";
 import "./style.css";
 
-const LineChart = ({ data, options, title }) => {
+const LineChart = ({ data, title }) => {
   const type = "Line";
 
-  const generalOptions = {
+  const options = {
     width: "70%",
     height: "150px",
+    hight: Math.max(...data.series.flat()) + 5,
+    low: Math.min(...data.series.flat()) - 5,
     axisX: {
       offset: 70,
       labelInterpolationFnc: function(value, index) {
@@ -19,11 +21,7 @@ const LineChart = ({ data, options, title }) => {
   return (
     <div>
       <h4>{title}</h4>
-      <ChartistGraph
-        data={data}
-        options={{ ...generalOptions, ...options }}
-        type={type}
-      />
+      <ChartistGraph data={data} options={options} type={type} />
     </div>
   );
 };

@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import "./style.css";
 
 const CurrentWeather = ({ icon, temp, city }) => {
-  // console.log("-> ", icon, temp);
-
   return (
     <div className={"current-weather-container"}>
       <h4>

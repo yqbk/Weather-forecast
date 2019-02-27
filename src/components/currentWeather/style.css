@@ -1,18 +1,16 @@
 .current-weather-container {
     padding-bottom: 30px;
     border-bottom: 1px dashed black;
+    margin-bottom: 15px;
 }
 
 .current-weather {
     display: flex;
-    /* border: 1px solid black; */
     align-items: center;
     justify-content: center;
-    /* padding: 20px; */
 }
 
 .current-weather-info {
-    /* border: 1px solid black; */
     display: flex;
     flex-direction: column;
 }
@@ -25,6 +23,5 @@ p {
 }
 
 .city-name {
-
     font-weight: bolder;
 }

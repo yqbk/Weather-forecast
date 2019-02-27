@@ -58,42 +58,19 @@ class App extends Component {
       currentWeatherIcon,
       currentWeatherTemp,
       city,
-      response
+      tempSeries,
+      humiditySeries
     } = this.props;
-
-    const time =
-      response && response.list.map(item => item.dt_txt.slice(5, -8));
-
-    const temp =
-      response && response.list.map(item => getTempInCelsius(item.main.temp));
-
-    const humidity = response && response.list.map(item => item.main.humidity);
-
-    const data = {
-      labels: time,
-      series: [[...temp]]
-    };
-
-    const data2 = {
-      labels: time,
-      series: [[], [...humidity]]
-    };
-
-    const tempChartOptions = {
-      high: Math.max(temp) + 5,
-      low: Math.min(temp) - 5
-    };
-
-    const humidityChartOptions = {
-      high: 100,
-      low: 0
-    };
 
     return (
       <div className="App">
         <SearchBar />
 
-        {this.props.response && this.props.response.list.length && (
+        {this.props.loading ? (
+          <div className="loader">
+            <i className="fa fa-refresh fa-spin fa-5x fa-fw" />
+          </div>
+        ) : (
           <div>
             <CurrentWeather
               icon={currentWeatherIcon}
@@ -101,13 +78,11 @@ class App extends Component {
               city={city}
             />
             <LineChart
-              data={data}
-              options={tempChartOptions}
+              data={tempSeries}
               title={"Temperature in 5 days"}
             />
             <LineChart
-              data={data2}
-              options={humidityChartOptions}
+              data={humiditySeries}
               title={"Humidity in 5 days"}
             />
           </div>
@@ -118,11 +93,14 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
-  response: state.responses.response,
-  loading: state.responses.loading,
-  city: state.responses.city,
-  currentWeatherTemp: state.responses.currentWeatherTemp,
-  currentWeatherIcon: state.responses.currentWeatherIcon
+  // response: state.weather.response,
+  loading: state.weather.loading,
+  city: state.weather.city,
+  currentWeatherTemp: state.weather.currentWeather.temp,
+  currentWeatherIcon: state.weather.currentWeather.icon,
+  // dayLabels: state.weather.weatherForecast.dayLabels,
+  tempSeries: state.weather.weatherForecast.tempSeries,
+  humiditySeries: state.weather.weatherForecast.humiditySeries
 });
 
 const mapDispatchToProps = dispatch => ({

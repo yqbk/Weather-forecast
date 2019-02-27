@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
-import responses from "./responsesReducer";
+import weather from "./weatherReducer";
 
 export default combineReducers({
-  responses
+  weather
 });
