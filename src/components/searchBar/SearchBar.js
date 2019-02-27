@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchAPI } from "../../actions/requestActions";
+import { fetchAPI } from "../../actions/weatherActions";
 
 import { Navbar, Nav, Form, FormControl, Button } from "react-bootstrap";
 import "./style.css";
@@ -9,11 +9,13 @@ class SearchBar extends Component {
   constructor(props) {
     super(props);
 
-    this.submitText = "Submit";
-
     this.state = {
       city: ""
     };
+  }
+
+  componentDidMount() {
+    this.props.fetchAPI("warsaw");
   }
 
   onInputChange = event => {
@@ -22,8 +24,6 @@ class SearchBar extends Component {
 
   onFormSubmit = event => {
     event.preventDefault();
-
-    // console.log("On submit");
 
     this.props.fetchAPI(this.state.city);
     this.setState({ city: "" });
@@ -38,7 +38,7 @@ class SearchBar extends Component {
           <div className="search">
             <FormControl
               type="text"
-              placeholder="Type city in Poland"
+              placeholder="Type city name"
               className="mr-sm-2"
               value={this.state.city}
               onChange={this.onInputChange}

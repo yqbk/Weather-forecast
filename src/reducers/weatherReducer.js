@@ -1,8 +1,8 @@
 import {
-  GET_API_REQUEST,
-  GET_API_REQUEST_SUCCESS,
-  GET_API_REQUEST_FAILURE
-} from "../actions/requestActions";
+  GET_WEATHER_REQUEST,
+  GET_WEATHER_REQUEST_SUCCESS,
+  GET_WEATHER_REQUEST_FAILURE
+} from "../actions/weatherActions";
 import { getTempInCelsius } from "../helpers/temp";
 
 const initialState = {
@@ -22,14 +22,15 @@ const initialState = {
 
 export default function responsesReducer(state = initialState, action) {
   switch (action.type) {
-    case GET_API_REQUEST: {
+    case GET_WEATHER_REQUEST: {
       return {
         ...state,
-        city: action.payload.city
+        city: action.payload.city,
+        loading: true
       };
     }
 
-    case GET_API_REQUEST_SUCCESS: {
+    case GET_WEATHER_REQUEST_SUCCESS: {
       const weatherData = action.payload.response;
       const currentWeather = weatherData.list[0];
 
@@ -64,7 +65,7 @@ export default function responsesReducer(state = initialState, action) {
       };
     }
 
-    case GET_API_REQUEST_FAILURE:
+    case GET_WEATHER_REQUEST_FAILURE:
       return {
         ...state,
         loading: false,
