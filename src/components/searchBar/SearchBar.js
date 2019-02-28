@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { fetchAPI } from "../../actions/weatherActions";
 
 import { Navbar, Nav, Form, FormControl, Button } from "react-bootstrap";
-import "./style.css";
 
 class SearchBar extends Component {
   constructor(props) {

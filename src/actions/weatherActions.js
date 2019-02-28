@@ -1,12 +1,11 @@
 const API_KEY = "2bc56728817d88f15b17efb38cf8c7df";
-const ROOT_URL = `http://api.openweathermap.org/data/2.5/forecast?appid=${API_KEY}`;
+const ROOT_URL = `https://api.openweathermap.org/data/2.5/forecast?appid=${API_KEY}`;
 
 export function fetchAPI(city) {
   return dispatch => {
     const url = `${ROOT_URL}&q=${city}`;
     dispatch(getWeatherRequest(city));
 
-    // Mock real address and get data from static files provided for the task
     return fetch(url)
       .then(handleErrors)
       .then(response => {

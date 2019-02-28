@@ -1,6 +1,7 @@
 {
-  "name": "test",
+  "name": "Weather",
   "version": "0.1.0",
+  "homepage": "http://yqbk.github.io/weather",
   "private": true,
   "dependencies": {
     "bootstrap": "^4.3.1",

@@ -22,7 +22,10 @@ class App extends Component {
 
         {this.props.loading ? (
           <div className="loader">
-            <i className="fa fa-refresh fa-spin fa-5x fa-fw" />
+            {/* <i className="fas fa-refresh fa-spin fa-5x fa-fw" /> */}
+            {/* <span class="fas fa-spinner fa-7x"></span> */}
+            <i class="fas fa-spinner fa-spin fa-5x fa-fw"></i>
+
             <span className={"loading-text"}>Loading...</span>
           </div>
         ) : (
