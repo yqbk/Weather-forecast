@@ -16,7 +16,7 @@ The goal of this project is to change the city of the city. By default, it displ
 - More interactivity for charts
 - More configuration options
 
-The project was created using [Create React App] (https://github.com/facebook/create-react-app).
+The project was created using [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
